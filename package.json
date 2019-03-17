@@ -1,0 +1,45 @@
+{
+  "name": "Timeslot-Scheduler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/index.js",
+    "build": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philipstout3/Timeslot-Scheduler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philipstout3/Timeslot-Scheduler/issues"
+  },
+  "homepage": "https://github.com/philipstout3/Timeslot-Scheduler#readme",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "jquery": "^3.3.1",
+    "mongoose": "^5.4.19",
+    "react-modal": "^3.8.1",
+    "react-switch": "^4.1.0",
+    "react-toggle-switch": "^3.0.4",
+    "styled-components": "^4.1.3"
+  }
+}
