@@ -21,6 +21,26 @@ app.get('/api/reservation_items', (req, res) => {
   });
 })
 
+app.get('/api/reservation_item/:propertyId', (req, res) => {
+  db.collection('reservation_items').find({"_id": ObjectID(req.params.propertyId)}).toArray((err, result) => {
+    if(err) {
+      console.log(err);
+      return;
+    }
+    res.send(result);
+  });
+})
+
+app.get('/api/reservation_times/:propertyId', (req, res) => {
+  db.collection('reservation_times').find({"propertyId": req.params.propertyId}).toArray((err, result) => {
+    if(err) {
+      console.log(err);
+      return;
+    }
+    res.send(result);
+  });
+})
+
   app.put('/api/reservation_items', (req, res) => {
     var {id, name, available, capacity} = req.body;
     db.collection('reservation_items').updateOne(

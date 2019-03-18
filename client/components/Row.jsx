@@ -1,7 +1,7 @@
 import React from 'react';
 import Switch from "react-switch";
 import $ from 'jquery';
-import {TsTr, TsTd, EditRow, SaveRow, CancelSaveRow, AddRow, AddRowText, DeleteRow} from '../../styles.js'
+import {TsTr, TsTd, EditRow, SaveRow, CancelSaveRow, AddRow, AddRowText, DeleteRow, EditTimeslots} from '../../styles.js'
 
 class Row extends React.Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class Row extends React.Component {
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.updateProperty = this.updateProperty.bind(this);
     this.deleteProperty = this.deleteProperty.bind(this);
+    this.editTimes = this.editTimes.bind(this);
   }
 
   toggleEdit(e) {
@@ -74,11 +75,15 @@ class Row extends React.Component {
     this.props.deleteRow(this.props.rowId);
   }
 
+  editTimes() {
+    this.props.editTimeslot(this.props.rowId)
+  }
+
   render() {
     return (
       this.state.edit ? 
       <TsTr>
-        <TsTd style={{width: "58%"}}>
+        <TsTd style={{width: "30%"}}>
           <EditRow id='name' type='text' value={this.state.name} onChange={this.editValues}/>
         </TsTd>
         <TsTd>
@@ -90,6 +95,7 @@ class Row extends React.Component {
         <td>
           <CancelSaveRow onClick={this.cancelSave}>Cancel</CancelSaveRow>
           <SaveRow onClick={this.saveValues}>Save</SaveRow>
+          <EditTimeslots onClick={this.editTimes}>Edit Timeslots</EditTimeslots>
           <DeleteRow onClick={this.deleteProperty}>Delete</DeleteRow>
         </td>
       </TsTr>

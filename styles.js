@@ -34,6 +34,10 @@ export const AddRow = styled.td `
   text-align: right;
 `
 
+export const AddRowCenter = styled.td `
+  padding: 8px;
+`
+
 export const AddRowText = styled.div `
   display: inline-block
   :hover {
@@ -79,6 +83,15 @@ export const CreateProperty = styled.div `
 
 export const DeleteRow = styled.button `
   background-color: red;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  height: 30px
+  font-size: 16px
+  margin-left: 8px
+  :hover {
+    cursor: pointer;
+`
+
+export const EditTimeslots = styled.button `
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   height: 30px
   font-size: 16px
