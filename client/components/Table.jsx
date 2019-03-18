@@ -27,6 +27,7 @@ class Table extends React.Component {
     this.closeForm = this.closeForm.bind(this);
     this.concatRow = this.concatRow.bind(this);
     this.getProperties = this.getProperties.bind(this);
+    this.deleteRow = this.deleteRow.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +35,6 @@ class Table extends React.Component {
   }
 
   getProperties() {
-    console.log('ran...')
     $.ajax({
       method: "GET",
       url: '/api/reservation_items',
@@ -64,12 +64,29 @@ class Table extends React.Component {
     this.setState({
       properties: this.state.properties.concat(
         {
+          _id: obj._id,
           name: obj.name,
           available: obj.available,
           capacity: obj.capacity
         }
       )
     })
+  }
+
+  deleteRow(rowId) {
+    $.ajax({
+      method: "DELETE",
+      url: '/api/reservation_items',
+      //dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({id: rowId}),
+      success: () => {
+        this.setState({
+          properties: []
+        })
+        this.getProperties()
+      }
+    });
   }
 
 
@@ -85,7 +102,7 @@ class Table extends React.Component {
             </TsTr>
             {
               this.state.properties.map((row, i) => {
-                return <Row name={row.name} available={row.available} capacity={row.capacity} key={i} rowId={i}/>
+                return <Row name={row.name} available={row.available} capacity={row.capacity} key={i} rowId={row._id} deleteRow={this.deleteRow}/>
               })
             }
             <tr>

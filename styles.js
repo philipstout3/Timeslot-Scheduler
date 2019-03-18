@@ -4,11 +4,14 @@ export const TsTbl = styled.table `
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  tr:not(:last-child):hover td:not(:nth-child(4)){
+    background: #ddd;
+}
 `
 
 export const TsTr = styled.tr `
   :hover {
-    background-color: #ddd;
+    //background-color: #ddd;
     cursor: pointer;
   }
 `
@@ -46,7 +49,7 @@ export const EditRow = styled.input `
 `
 
 export const SaveRow = styled.button `
-  background-color: #4CAF50;
+  //background-color: #4CAF50;
   // float: right;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   height: 30px
@@ -72,4 +75,14 @@ export const CreateProperty = styled.div `
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
+`
+
+export const DeleteRow = styled.button `
+  background-color: red;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  height: 30px
+  font-size: 16px
+  margin-left: 8px
+  :hover {
+    cursor: pointer;
 `

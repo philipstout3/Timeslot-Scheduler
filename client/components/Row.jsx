@@ -1,6 +1,7 @@
 import React from 'react';
 import Switch from "react-switch";
-import {TsTr, TsTd, EditRow, SaveRow, CancelSaveRow, SliderInput, SliderLabel} from '../../styles.js'
+import $ from 'jquery';
+import {TsTr, TsTd, EditRow, SaveRow, CancelSaveRow, AddRow, AddRowText, DeleteRow} from '../../styles.js'
 
 class Row extends React.Component {
   constructor(props) {
@@ -18,11 +19,13 @@ class Row extends React.Component {
     this.saveValues = this.saveValues.bind(this);
     this.cancelSave = this.cancelSave.bind(this);
     this.toggleSwitch = this.toggleSwitch.bind(this);
+    this.updateProperty = this.updateProperty.bind(this);
+    this.deleteProperty = this.deleteProperty.bind(this);
   }
 
   toggleEdit(e) {
     this.setState({
-      edit: true,
+      edit: !this.state.edit,
       // targetRow: Number(e.target.parentElement.id)
     })
   }
@@ -45,6 +48,20 @@ class Row extends React.Component {
       savedAvailability: this.state.available,
       edit: false
     })
+    this.updateProperty();
+  }
+
+  updateProperty() {
+    $.ajax({
+      method: "PUT",
+      url: '/api/reservation_items',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify({id: this.props.rowId, name: this.state.name, available: this.state.checked, capacity: this.state.capacity}),
+      success: (data) => {
+        console.log('updated data:', data)
+      },
+    });
   }
 
   cancelSave() {
@@ -53,14 +70,16 @@ class Row extends React.Component {
     })
   }
 
+  deleteProperty() {
+    this.props.deleteRow(this.props.rowId);
+  }
+
   render() {
     return (
       this.state.edit ? 
       <TsTr>
         <TsTd style={{width: "58%"}}>
           <EditRow id='name' type='text' value={this.state.name} onChange={this.editValues}/>
-          <CancelSaveRow onClick={this.cancelSave}>Cancel</CancelSaveRow>
-          <SaveRow onClick={this.saveValues}>Save</SaveRow>
         </TsTd>
         <TsTd>
           <Switch onChange={this.toggleSwitch} checked={this.state.checked}/>
@@ -68,6 +87,11 @@ class Row extends React.Component {
         <TsTd>
         <EditRow id='capacity' type='text' value={this.state.capacity} onChange={this.editValues}/>
         </TsTd>
+        <td>
+          <CancelSaveRow onClick={this.cancelSave}>Cancel</CancelSaveRow>
+          <SaveRow onClick={this.saveValues}>Save</SaveRow>
+          <DeleteRow onClick={this.deleteProperty}>Delete</DeleteRow>
+        </td>
       </TsTr>
       :
       <TsTr onClick={this.toggleEdit}>
