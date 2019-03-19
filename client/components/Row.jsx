@@ -77,6 +77,9 @@ class Row extends React.Component {
 
   editTimes() {
     this.props.editTimeslot(this.props.rowId)
+    this.setState({
+      edit: false
+    })
   }
 
   render() {

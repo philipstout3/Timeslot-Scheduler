@@ -41,13 +41,22 @@ app.get('/api/reservation_times/:propertyId', (req, res) => {
   });
 })
 
-  app.put('/api/reservation_items', (req, res) => {
-    var {id, name, available, capacity} = req.body;
-    db.collection('reservation_items').updateOne(
+app.put('/api/reservation_items', (req, res) => {
+  var {id, name, available, capacity} = req.body;
+  db.collection('reservation_items').updateOne(
+    {"_id": ObjectID(id)},
+    {"$set": {"name": name, "capacity": capacity, "available": available}}
+  )
+})
+
+  app.put('/api/reservation_times', (req, res) => {
+    var {id, start, end} = req.body;
+    db.collection('reservation_times').updateOne(
       {"_id": ObjectID(id)},
-      {"$set": {"name": name, "capacity": capacity, "available": available}}
+      {"$set": {"start": start, "end": end}}
     )
 })
+
 
 app.post('/api/reservation_items', (req, res) => {
   var {name, available, capacity} = req.body;
@@ -58,9 +67,26 @@ app.post('/api/reservation_items', (req, res) => {
   )
 })
 
+app.post('/api/reservation_times/', (req, res) => {
+  var {propertyId, start, end, day} = req.body;
+  db.collection('reservation_times').insertOne(
+    {"propertyId": propertyId, "start": start, "end": end, "day": day }, (err, results) => {
+      res.send(results.ops)
+    }
+  )
+})
+
 app.delete('/api/reservation_items', (req, res) => {
   var id = req.body.id;
   db.collection('reservation_items').deleteOne(
+    {"_id": ObjectID(id)}
+  );
+  res.send('deleted');
+})
+
+app.delete('/api/reservation_times', (req, res) => {
+  var id = req.body.id;
+  db.collection('reservation_times').deleteOne(
     {"_id": ObjectID(id)}
   );
   res.send('deleted');

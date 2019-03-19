@@ -99,3 +99,14 @@ export const EditTimeslots = styled.button `
   :hover {
     cursor: pointer;
 `
+
+export const Return = styled.button `
+  // float: right;
+  margin-left: 8px
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  height: 30px
+  font-size: 16px
+  :hover {
+    cursor: pointer;
+  }
+`

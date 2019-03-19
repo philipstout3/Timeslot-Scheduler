@@ -24,6 +24,7 @@ class Table extends React.Component {
     this.editTimeslot = this.editTimeslot.bind(this);
     this.getProperty = this.getProperty.bind(this);
     this.getTimes = this.getTimes.bind(this);
+    this.returnBtn = this.returnBtn.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +54,12 @@ class Table extends React.Component {
   closeForm() {
     this.setState({
       displayAddFields: false
+    })
+  }
+
+  returnBtn() {
+    this.setState({
+      editTimeslot: false
     })
   }
 
@@ -111,6 +118,8 @@ class Table extends React.Component {
       method: "GET",
       url: `/api/reservation_times/${propertyId}`,
       success: (data) => {
+        console.log('propertyId', propertyId)
+        console.log('getTimes results:',data);
         this.setState({
           propertyTimes: data,
         })
@@ -147,7 +156,7 @@ class Table extends React.Component {
             <AddProperty closeForm={this.closeForm} concatRow={this.concatRow}/>
           </div>
         </div>
-          <EditTimeslot property={this.state.propertyToEdit} display={this.state.editTimeslot} propertyTimes={this.state.propertyTimes}/>
+          <EditTimeslot returnBtn={this.returnBtn} property={this.state.propertyToEdit} display={this.state.editTimeslot} propertyTimes={this.state.propertyTimes} getTimes={this.getTimes}/>
       </div>
     )
   }
